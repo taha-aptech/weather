@@ -1,18 +1,15 @@
 import sys
 
-# Read input line by line
 for line in sys.stdin:
     line = line.strip()
-    parts = line.split(",")  # Assuming CSV format
+    parts = line.split(",")
 
-    if len(parts) > 2:  # Ensure valid data
-        date, temp, humidity, label = parts[0], parts[1], parts[2], parts[3]
-        
+    if len(parts) > 2 and parts[0] != "Date":
         try:
-            temp = float(temp)
-            if temp > 40:  # Example threshold for anomaly
-                print(f"{date}\tAnomaly")
+            temp = float(parts[1])
+            if temp > 40:
+                print("%s\t%s" % (parts[0], "Anomaly"))
             else:
-                print(f"{date}\tNormal")
+                print("%s\t%s" % (parts[0], "Normal"))
         except ValueError:
             continue
